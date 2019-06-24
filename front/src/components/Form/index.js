@@ -139,20 +139,28 @@ export default class Form extends React.Component {
         this.setState({ codeErrorText: 'Code needs to have 8 digits' })
         this.setState({ codeSucessText: '' })
       }else{
-        let flag = true
-        await server.get('./cellphones/?researchBy=').then( responde => {
-          responde.data.forEach(data => {
-            if(data.code === value){
-              flag = false
-            }
+        try{
+          let flag = true
+          await server.get('./cellphones/?researchBy=').then( responde => {
+            responde.data.forEach(data => {
+              if(data.code === value){
+                flag = false
+              }
+            })
           })
-        })
-        if(!flag){
-          this.setState({ codeErrorText: 'Code already exist, if you are trying to create, try another one' })
+          if(!flag){
+            this.setState({ codeErrorText: 'Code already exist, if you are trying to create, try another one' })
+            this.setState({ codeSucessText: '' })
+          }else{
+            this.setState({ codeErrorText: '' })
+            this.setState({ codeSucessText: 'Ok!' })
+          }
+        }catch(e){
+          this.setState({ codeErrorText: 'Server not Found' })
           this.setState({ codeSucessText: '' })
-        }else{
-          this.setState({ codeErrorText: '' })
-          this.setState({ codeSucessText: 'Ok!' })
+
+          this.setState({ code: value})
+          this.setState({ loadCode : false})
         }
       }
       this.setState({ code: value})
