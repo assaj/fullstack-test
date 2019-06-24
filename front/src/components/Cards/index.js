@@ -89,6 +89,7 @@ export default class Cards extends React.Component {
                 <CardBody>
                   <CardText>Model: {phone.model}</CardText>
                   <CardText>Price: {phone.price}</CardText>
+                  <CardText>Brand: {phone.brand}</CardText>
                   <CardText>Photo URL: {phone.photo}</CardText>
                   <CardText>Start Date: {this.converDate(phone.startDate)}</CardText>
                   <CardText>End Date: {this.converDate(phone.endDate)}</CardText>
